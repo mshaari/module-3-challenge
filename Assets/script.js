@@ -27,58 +27,47 @@ function generatePassword () {
   //ideas: maybe designate each spot a number and assign it a value using a for loop
   //one for loop version for each permutation of characters
 
-  //THIS FOR LOOP IS IN THE CASE THAT THEY CHOSE TO HAVE ALL FOUR CHARACTERS
-  var password;
+  var password= "";
   
-  for (var x = 0; x < characterCount; x++) {
+  for (var x = 0; x <= characterCount; x++) {
     function getRandomInt() {
       return Math.floor(Math.random() * 4);
     }
       
     var randomType = getRandomInt();
     
-    //lowercase option
-    if (lowercase==true && randomType == 1) {
+    if (lowercase==true && randomType == 1) {  //lowercase option
         function generateLowercase() {
-        var lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
-        return lowercaseAlphabet[Math.floor(Math.random() * lowercaseAlphabet.length)];
-        }
+          var lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
+          return lowercaseAlphabet[Math.floor(Math.random() * lowercaseAlphabet.length)];
+          }
 
         var newCharacter= generateLowercase();
-        password= password + newCharacter;
-      } 
-    
-    //uppercase option
-    if (uppercase==true && randomType == 2) {
-      function generateUppercase() {
-        var uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        return uppercaseAlphabet[Math.floor(Math.random() * uppercaseAlphabet.length)];
-        }
+        password += newCharacter;
+      } else if (uppercase==true && randomType == 2) {  //uppercase option
+          function generateUppercase() {
+            var uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return uppercaseAlphabet[Math.floor(Math.random() * uppercaseAlphabet.length)];
+            }
 
-        var newCharacter= generateUppercase();
-        password= password + newCharacter;
-      } 
-    
-    //numeric option
-    if (numeric==true && randomType == 3) {
-      function generateNumeric() {
-        return Math.floor(Math.random() * 9);
-      }
+            var newCharacter= generateUppercase();
+            password += newCharacter;
+      } else if (numeric==true && randomType == 3) { //numeric option
+          function generateNumeric() {
+            return Math.floor(Math.random() * 9);
+            }
 
-      var newCharacter= generateNumeric();
-      password= password + newCharacter;
-    } 
-    
-    //special character option
-    if (special==true && randomType == 4) {
-      function generateSpecial() {
-        var specialCharacters = '\U0020\U0021\U0022\U0023\UO024\UO025\U0026\UO027\U0028\U0029\U002A\U002B\U002C\U002D\U002E\U002F\U003A\U003B\U003C\U003D\U003E\U003F\U0040\U005B\U005C\U005D\U005E\U005F\U0060\U007B\U007C\U007D\U007E';
-        return specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
-        }
+          var newCharacter= generateNumeric();
+          password += newCharacter;
+      } else if (special==true && randomType == 4) { //special character option
+          function generateSpecial() {
+            var specialCharacters = "\u0020 \u0022 !#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+            return specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+            }
 
-        var newCharacter= generateSpecial();
-        password= password + newCharacter;
-    }
+          var newCharacter= generateSpecial();
+          password += newCharacter;
+        } 
   }
 
   return password;
