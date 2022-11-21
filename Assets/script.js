@@ -29,6 +29,7 @@ function generatePassword () {
 
   //THIS FOR LOOP IS IN THE CASE THAT THEY CHOSE TO HAVE ALL FOUR CHARACTERS
   var password;
+  
   for (var x = 0; x < characterCount; x++) {
     function getRandomInt() {
       return Math.floor(Math.random() * 4);
@@ -45,9 +46,7 @@ function generatePassword () {
 
         var newCharacter= generateLowercase();
         password= password + newCharacter;
-      } else {
-      password=password;
-    }
+      } 
     
     //uppercase option
     if (uppercase==true && randomType == 2) {
@@ -58,9 +57,7 @@ function generatePassword () {
 
         var newCharacter= generateUppercase();
         password= password + newCharacter;
-      } else {
-      password=password;
-    }
+      } 
     
     //numeric option
     if (numeric==true && randomType == 3) {
@@ -70,9 +67,7 @@ function generatePassword () {
 
       var newCharacter= generateNumeric();
       password= password + newCharacter;
-    } else {
-      password=password;
-    }
+    } 
     
     //special character option
     if (special==true && randomType == 4) {
@@ -86,7 +81,8 @@ function generatePassword () {
     }
   }
 
-  return finalPassword = password;
+  return password;
+  //MAYBE JUST MAKE THIS finalPassword= password; AND THEN IN function writePassword() change "password" to "finalPassword"
 }
 
 // Write password to the #password input
@@ -100,3 +96,5 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+//DONT FORGET THE CASE THAT IS WHAT IF IT DOESNT INCLUDE ONE OF THE REQUIRED THIGNS
