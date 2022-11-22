@@ -27,49 +27,56 @@ function generatePassword () {
   //ideas: maybe designate each spot a number and assign it a value using a for loop
   //one for loop version for each permutation of characters
 
+
+  //for each character place, run the entire function of get the number convert to type and then insert a random number from that type-- TRY DOING ONE BIG FOR LOOP, EMBEDDING WITHIN IT AN IF STATEMENT FOR EACH CHARTYPE AND THEN WITHIN THAT ADD THAT KIND OF CHARACTER TO THE STRING (WILL HAVE SOME ORDER TO IT BUT AT LEAST ITS SOMEWHAT RANDOM)
+
   var password= "";
-  
-  for (var x = 0; x <= characterCount; x++) {
-    function getRandomInt() {
-      return Math.floor(Math.random() * 4);
+
+  //the lowercase+uppercase+numeric+special tallies the number of types since we have one big function for all of the different types so it only iterates the function the proper amount needed
+  //THERE IS A WEIRD CASE WITH 10 CHARACTERS AND 3 TYPES since you get 3.33 so it does the function 4 times but then it gives you more than expected
+
+  for (var x = 0; x < (characterCount/(lowercase+uppercase+numeric+special)); x++) {
+    if (lowercase==true) {
+      function generateLowercase() {
+        var lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        return lowercaseAlphabet[Math.floor(Math.random() * lowercaseAlphabet.length)];
+        }
+
+      var newCharacter= generateLowercase();
+      password += newCharacter;
     }
-      
-    var randomType = getRandomInt();
-    
-    if (lowercase==true && randomType == 1) {  //lowercase option
-        function generateLowercase() {
-          var lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
-          return lowercaseAlphabet[Math.floor(Math.random() * lowercaseAlphabet.length)];
-          }
 
-        var newCharacter= generateLowercase();
-        password += newCharacter;
-      } else if (uppercase==true && randomType == 2) {  //uppercase option
-          function generateUppercase() {
-            var uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            return uppercaseAlphabet[Math.floor(Math.random() * uppercaseAlphabet.length)];
-            }
+    if (uppercase==true) {
+      function generateUppercase() {
+        var uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        return uppercaseAlphabet[Math.floor(Math.random() * uppercaseAlphabet.length)];
+        }
 
-            var newCharacter= generateUppercase();
-            password += newCharacter;
-      } else if (numeric==true && randomType == 3) { //numeric option
-          function generateNumeric() {
-            return Math.floor(Math.random() * 9);
-            }
+      var newCharacter= generateUppercase();
+      password += newCharacter;
+    }
 
-          var newCharacter= generateNumeric();
-          password += newCharacter;
-      } else if (special==true && randomType == 4) { //special character option
-          function generateSpecial() {
-            var specialCharacters = "\u0020 \u0022 !#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-            return specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
-            }
+    if (numeric==true) {
+      function generateNumeric() {
+        var numbers = "0123456789";
+        return numbers[Math.floor(Math.random() * numbers.length)];
+        }
 
-          var newCharacter= generateSpecial();
-          password += newCharacter;
-        } 
+      var newCharacter= generateNumeric();
+      password += newCharacter;
+    }
+
+    if (special==true) {
+      function generateSpecial() {
+        var specialCharacters = " !”#$%&'()*+,-./:;<=>?@[]^_`{|}~\u005C";
+        return specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+        }
+
+      var newCharacter= generateSpecial();
+      password += newCharacter;
+    }
   }
-
+  
   return password;
   //MAYBE JUST MAKE THIS finalPassword= password; AND THEN IN function writePassword() change "password" to "finalPassword"
 }
