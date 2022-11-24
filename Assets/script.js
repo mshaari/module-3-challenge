@@ -82,7 +82,19 @@ function generatePassword () {
     password = password.substring(0, characterCount);
   } 
   
-  //HERE WE ALSO HAVE TO ADD A FUNCTION IN THAT THEN TAKES THAT STRING AN RANDOMIZES THE ORDER OF IT
+  
+  //So, even though we've created a password, there's still some order to it (the same pattern of characters). So, to fully randomize it, we need to shuffle characters. To do so, let's convert this string to an array.
+
+  var passwordArray = password.split(''); //this converts password string into an array called passwordArray
+  
+  for (i = 0; i < characterCount; i++) {
+    var y = Math.floor(Math.random() * characterCount);
+    var z = Math.floor(Math.random() * characterCount);
+    var temp = passwordArray[y]; //this sets temp (temporary) to the yth element in passwordArray
+    passwordArray[y] = passwordArray[z]; //this sets the yth element in passwordArray = the zth element
+    passwordArray[z] = temp; //this sets the zth element equal to the original yth element
+    password = passwordArray.join(''); 
+  }
 
   return password;
 }
