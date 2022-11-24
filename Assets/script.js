@@ -33,7 +33,7 @@ function generatePassword () {
   var password= "";
 
   //the lowercase+uppercase+numeric+special tallies the number of types since we have one big function for all of the different types so it only iterates the function the proper amount needed
-  //THERE IS A WEIRD CASE WITH 10 CHARACTERS AND 3 TYPES since you get 3.33 so it does the function 4 times but then it gives you more than expected
+  //THERE IS A WEIRD CASE WITH 10 CHARACTERS AND 3 TYPES since you get 3.33 so it does the function 4 times but then it gives you more than expected 
 
   for (var x = 0; x < (characterCount/(lowercase+uppercase+numeric+special)); x++) {
     if (lowercase==true) {
@@ -76,9 +76,15 @@ function generatePassword () {
       password += newCharacter;
     }
   }
+
+  //this ensures the password is no longer than the character count allotted since in some cases, it may be longer than anticipated (like if you want a 10 character password with 3 different criteria since it will iterate the foor loop 4 times and then produce a 12 letter password, so this fucntion will then shorten it down to 12)
+  if (password.length > characterCount) {
+    password = password.substring(0, characterCount);
+  } 
   
+  //HERE WE ALSO HAVE TO ADD A FUNCTION IN THAT THEN TAKES THAT STRING AN RANDOMIZES THE ORDER OF IT
+
   return password;
-  //MAYBE JUST MAKE THIS finalPassword= password; AND THEN IN function writePassword() change "password" to "finalPassword"
 }
 
 // Write password to the #password input
