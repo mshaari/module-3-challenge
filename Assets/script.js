@@ -7,11 +7,12 @@ function generatePassword () {
   //This asks the user how many characters they want their password to be and logs their response in a variable called characterCount
   var characterCount= window.prompt("How many characters do you want (8-128)?");
 
-  //This confirms that the number of characters the user entered is between 8 and 128; if not, it informs them of their error and makes them re-answer
-  if (characterCount < 8 || characterCount > 128) {
+  //This confirms that the number of characters the user entered is between 8 and 128; if not, it informs them of their error and makes them re-answer. It is a while loop and not a for loop so no matter how many times the user enters the wrong password it will give them the error statement again
+  while (characterCount < 8 || characterCount > 128) {
     window.alert("Your input must be a number between 8 and 128.");
     var characterCount= window.prompt("How many characters do you want (8-128)?");
   }
+
   //THERE IS AN ERROR HERE BECASUE ON THE SECOND TIME AROUND YOU COULD TECHNICALLY INSERT THE WRONG AMT (ASK ERIK ABOUT THIS I GUESS)
 
   //This series of prompts ask the user whether they want lowercase characters, uppercase characters, numeric characters, and/or special characters. It does so using window.confirm, so they click "OK" (boolean set to true) if they want that type of character and "cancel" (boolean set to false) if they do not 
@@ -20,8 +21,8 @@ function generatePassword () {
   var numeric= window.confirm("Do you want numeric characters? If yes, hit OK.");
   var special= window.confirm("Do you want special characters? If yes, hit OK.");
 
-  //This confirms that the user selected at least one type of character; if they did not, it makes them reanswer all the prompts
-  if (lowercase ==false && uppercase ==false && numeric ==false && special ==false) {
+  //This confirms that the user selected at least one type of character; if they did not, it makes them reanswer all the prompts. The use of a while loop allows the browser to correct the user multiple times as opposed to an if statement which would only iterate and correct the user once.
+  while (lowercase ==false && uppercase ==false && numeric ==false && special ==false) {
     window.alert("You must select at least one character type.");
     var lowercase= window.confirm("Do you want lowercase letters? If yes, hit OK.");
     var uppercase= window.confirm("Do you want uppercase letters? If yes, hit OK.");
@@ -29,15 +30,8 @@ function generatePassword () {
     var special= window.confirm("Do you want special characters? If yes, hit OK.");
   }
   
-
-
-  //for each character place, run the entire function of get the number convert to type and then insert a random number from that type-- TRY DOING ONE BIG FOR LOOP, EMBEDDING WITHIN IT AN IF STATEMENT FOR EACH CHARTYPE AND THEN WITHIN THAT ADD THAT KIND OF CHARACTER TO THE STRING (WILL HAVE SOME ORDER TO IT BUT AT LEAST ITS SOMEWHAT RANDOM)
-
   //This declares a string with the variable name "password" -- it will be used throughout this code to create the end password
   var password= "";
-
-  //the lowercase+uppercase+numeric+special tallies the number of types since we have one big function for all of the different types so it only iterates the function the proper amount needed
-  //THERE IS A WEIRD CASE WITH 10 CHARACTERS AND 3 TYPES since you get 3.33 so it does the function 4 times but then it gives you more than expected 
 
   //This for loop iterates a certain number of times -- the characterCount divided by how many character types were selected. So, if you have 8 characters with 4 different types, the for loop will iterate 8/4 times, or 2 times. As such, it will produce the proper number of characters in most cases. However, there are some exceptions, such as if characterCount=10 and you select three character types, since 10/3=3.333, so the function will iterate four times and produce 12 characters, 2 more than needed. As such, later in the code, we have a segment that shortens the password to the proper length. In essence, we need to use this form so that we can ensure the passwords will always include all the desired types of characters; however, the pattern of characters will not be random, so we will shuffle the order of the characters later on.
   for (var x = 0; x < (characterCount/(lowercase+uppercase+numeric+special)); x++) {
