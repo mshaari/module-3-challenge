@@ -2,7 +2,7 @@
 
 ## Description
 
-NEED TO ADD TO THIS 
+Custom Password Generator is a valuable tool for users who, when using the website, can generate a password accoring to their desired criteria. The user tells the browser how many characters (between 8-128 characters) they want their password to have and whether they want lowercase, uppercase, numeric, and/or special characters. After telling the browser their preferences, a randomized and secure password is generated for them to copy and paste. It involves HTML, CSS, and makes extensive use of JavaScript to function properly.
 
 ## Screenshot
 
