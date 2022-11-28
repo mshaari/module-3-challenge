@@ -1,19 +1,16 @@
-// Assignment Code
-//WHAT DOES THIS DO??
+//This links the HTML element with the id="generate" to the variable generateBtn
 var generateBtn = document.querySelector("#generate");
 
 //This function is the bulk of this project -- it is what actually generates the password. For simplicity's sake, comments will be added within the function to explain its functionality
 function generatePassword () {
   //This asks the user how many characters they want their password to be and logs their response in a variable called characterCount
-  var characterCount= window.prompt("How many characters do you want (8-128)?");
+  var characterCount= window.prompt("How many characters do you want (enter a number between 8-128)?");
 
   //This confirms that the number of characters the user entered is between 8 and 128; if not, it informs them of their error and makes them re-answer. It is a while loop and not a for loop so no matter how many times the user enters the wrong password it will give them the error statement again
   while (characterCount < 8 || characterCount > 128) {
     window.alert("Your input must be a number between 8 and 128.");
     var characterCount= window.prompt("How many characters do you want (8-128)?");
   }
-
-  //THERE IS AN ERROR HERE BECASUE ON THE SECOND TIME AROUND YOU COULD TECHNICALLY INSERT THE WRONG AMT (ASK ERIK ABOUT THIS I GUESS)
 
   //This series of prompts ask the user whether they want lowercase characters, uppercase characters, numeric characters, and/or special characters. It does so using window.confirm, so they click "OK" (boolean set to true) if they want that type of character and "cancel" (boolean set to false) if they do not 
   var lowercase= window.confirm("Do you want lowercase letters? If yes, hit OK.");
@@ -113,5 +110,6 @@ function writePassword() {
   passwordText.value = password;
 }
 
-// Add event listener to generate button //GOOOOO OVER THISSSSSS
+// Add event listener to generate button 
+//This triggers the writePassword function when we click on generateBtn
 generateBtn.addEventListener("click", writePassword);
