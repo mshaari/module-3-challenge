@@ -1,15 +1,12 @@
 //This links the HTML element with the id="generate" to the variable generateBtn
-function qs(selector){
-  return document.querySelector(selector)
-}
-var generateBtn = qs("#generate");
+var generateBtn = document.querySelector("#generate");
 
 //This function is what actually generates the password. Comments are added within the function to explain its functionality
 function generatePassword () {
   //This asks the user how many characters they want their password to be and logs their response in a variable called characterCount
-  let characterCount= window.prompt("How many characters do you want (enter a number between 8-128)?");
+  var characterCount= window.prompt("How many characters do you want (enter a number between 8-128)?");
 
-  //This confirms that the number of characters the user entered is a number between 8 and 128; if not, it informs them of their error and makes them re-answer. It is a while loop and not a for loop so no matter how many times the user enters the wrong password it will give them the error statement again. The reason we use (!(characterCount > 8) && !(characterCount < 128)) and not (characterCount < 8 || chatacterCount > 128) is because this system is more restrictive and ensures that the input is a number between 8 and 128, not just something that is not greater than 128 or less than 8 (since non-numbers would technically pass that criteria even when they shouldn't)
+  //This confirms that the value the user entered is a number between 8 and 128; if not, it informs them of their error and makes them re-answer. It is a while loop and not a for loop so no matter how many times the user enters the wrong password it will give them the error statement again. The reason we use (!(characterCount > 8) && !(characterCount < 128)) and not (characterCount < 8 || chatacterCount > 128) is because this system is more restrictive and ensures that the input is a number between 8 and 128, not just something that is not greater than 128 or less than 8 (since words like the phrase "bob" would technically pass that criteria even when it shouldn't)
   while (!(characterCount > 8) || !(characterCount < 128)) {
     window.alert("Your input must be a number between 8 and 128.");
     characterCount= window.prompt("How many characters do you want (8-128)?");
@@ -33,14 +30,14 @@ function generatePassword () {
   //This declares a string with the variable name "password" -- it will be used throughout this code to create the end password
   var password= "";
 
-  //This for loop iterates a certain number of times -- the characterCount divided by how many character types were selected. So, if you have 8 characters with 4 different types, the for loop will iterate 8/4 times, or 2 times. As such, it will produce the proper number of characters in most cases. However, there are some exceptions, such as if characterCount=10 and you select three character types, since 10/3=3.333, so the function will iterate four times and produce 12 characters, 2 more than we want. As such, later in the code, we have a segment that shortens the password to the proper length. In essence, we need to use this form so that we can ensure the passwords will always include all the desired types of characters; however, the pattern of characters will not be random, so we will shuffle the order of the characters later on in this code.
+  //This for loop iterates a certain number of times -- the characterCount divided by how many character types were selected. So, if you have 8 characters with 4 different types, the for loop will iterate 8/4 times, or 2 times, producing an 8 letter password. Similarly, if you want a 12 letter password with 3 types, it iterates 12/3 or 4 times, producing a 12 letter password. As such, it will produce the proper number of characters in most cases. However, there are some outlying case exceptions, such as if characterCount=10 and you select three character types, since 10/3=3.333, so the function will iterate four times and produce 12 characters, 2 more than we want. As such, later in the code, we have a segment that shortens the password to the proper length. In essence, we need to use this for loop so that we can ensure the passwords will always include all the desired types of characters; however, the pattern of characters will not be random, so we will shuffle the order of the characters later on in this code.
   for (var x = 0; x < (characterCount/(Number(lowercase+uppercase+numeric+special))); x++) {
     //If the lowercase type was selected, it will select one random lowercase letter from the string lowercaseAlphabet and add it to the password string
     if (lowercase==true) {
       function generateLowercase() {
         var lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
         return lowercaseAlphabet[Math.floor(Math.random() * lowercaseAlphabet.length)];
-        }
+      }
 
       var newCharacter= generateLowercase();
       password += newCharacter;
@@ -51,7 +48,7 @@ function generatePassword () {
       function generateUppercase() {
         var uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return uppercaseAlphabet[Math.floor(Math.random() * uppercaseAlphabet.length)];
-        }
+      }
 
       var newCharacter= generateUppercase();
       password += newCharacter;
@@ -62,7 +59,7 @@ function generatePassword () {
       function generateNumeric() {
         var numbers = "0123456789";
         return numbers[Math.floor(Math.random() * numbers.length)];
-        }
+      }
 
       var newCharacter= generateNumeric();
       password += newCharacter;
@@ -80,7 +77,7 @@ function generatePassword () {
     }
   }
 
-  //This ensures the password is no longer than the character count allotted since in some cases, it may be longer than anticipated (recall the aforementioned example of if you want a 10 character password with 3 different character types since it will produce a 12 letter password, so this fucntion will then shorten it down to 10 characters). Though it will often be unncesary, it does not cause any harm to the password and only ensures that it is the proper length.
+  //This ensures the password is no longer than the character count allotted since in some cases, it may be longer than anticipated (recall the aforementioned example of if you want a 10 character password with 3 different character types since it will produce a 12 letter password, so this fucntion will then shorten it down to the desired 10 characters). Though it will often be unncesary, it does not cause any harm to the password and only ensures that it is the proper length.
   if (password.length > characterCount) {
     password = password.substring(0, characterCount);
   } 
@@ -90,13 +87,13 @@ function generatePassword () {
   //This converts password string into an array called passwordArray
   var passwordArray = password.split(''); 
   
-  //This for loop will iterate the characterCount number of times. It randomizes the order of the password; since it is in array form now, it essentially takes some random yth character and swaps it with a random zth character. 
+  //This for loop will iterate the (characterCount) number of times. It randomizes the order of the password; since it is in array form now, it essentially takes some random yth character and swaps it with a random zth character. 
   for (i = 0; i < characterCount; i++) {
     var y = Math.floor(Math.random() * characterCount);
     var z = Math.floor(Math.random() * characterCount);
-    var original = passwordArray[y]; //This sets a var original to the yth element in passwordArray
+    var original = passwordArray[y]; //This sets a var original to the yth element in passwordArray before it is swapped
     passwordArray[y] = passwordArray[z]; //This sets the yth element in passwordArray = the zth element
-    passwordArray[z] = original; //This sets the zth element equal to the original yth element
+    passwordArray[z] = original; //This sets the zth element equal to the original yth element before it was swapped
   }
   
   //This converts the array back into a string
